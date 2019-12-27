@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -40,7 +41,10 @@ public class ContactInfoFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_contact_info, container, false);
 
-        
+        ContactListViewAdapter contactListViewAdapter = new ContactListViewAdapter(contactArrayList);
+        ListView listView = (ListView) view.findViewById(R.id.listView);
+        listView.setAdapter(contactListViewAdapter);
+
         return view;
     }
 }
