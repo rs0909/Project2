@@ -19,10 +19,9 @@ public class ContactList {
         Uri uri = ContactsContract.CommonDataKinds.Phone.CONTENT_URI;
 
         String[] projection = new String[]{ContactsContract.CommonDataKinds.Phone.CONTACT_ID, ContactsContract.CommonDataKinds.Phone.NUMBER, ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME};
-        String[] selectionArgs = null;
         String sortOrder = ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME + " COLLATE LOCALIZED ASC";
 
-        Cursor contactCursor = context.getContentResolver().query(uri, projection, null, selectionArgs, sortOrder);
+        Cursor contactCursor = context.getContentResolver().query(uri, projection, null, null, sortOrder);
         ArrayList<Contact> contactList = new ArrayList<>();
 
         if(contactCursor.moveToFirst()){
