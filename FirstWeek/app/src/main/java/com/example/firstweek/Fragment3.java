@@ -23,7 +23,6 @@ public class Fragment3 extends Fragment {
     ContactHistoryDBHelper contactHistoryDBHelper;
     SQLiteDatabase sqLiteDatabase;
 
-
     public static Fragment3 newInstance() {
         if (_instance == null)
             _instance = new Fragment3();
@@ -46,7 +45,7 @@ public class Fragment3 extends Fragment {
         Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM CONTACT_HISTORY_TABLE order by COUNT desc", null);
         if(cursor.moveToFirst()){
             do{
-                Log.d("adkl", cursor.getString(0)  + " " + cursor.getString(1) + " " + cursor.getString(2) + " " + cursor.getInt(3));
+                Log.d("adkl", cursor.getString(1) + " " + cursor.getString(2) + " " + cursor.getInt(3));
             }while(cursor.moveToNext());
         }
 

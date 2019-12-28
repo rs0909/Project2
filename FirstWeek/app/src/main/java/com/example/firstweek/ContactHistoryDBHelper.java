@@ -23,7 +23,6 @@ public class ContactHistoryDBHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         StringBuffer stringBuffer = new StringBuffer();
         stringBuffer.append(" CREATE TABLE CONTACT_HISTORY_TABLE ( ");
-        stringBuffer.append(" _ID INTEGER PRIMARY KEY AUTOINCREMENT, ");
         stringBuffer.append(" NAME TEXT, ");
         stringBuffer.append(" PHONE TEXT, ");
         stringBuffer.append(" COUNT INTEGER ) ");
