@@ -16,7 +16,7 @@ public class MyPagerAdapter extends FragmentPagerAdapter {
             case 0:
                 return ContactInfoFragment.newInstance();
             case 1:
-                return Fragment2.newInstance();
+                return GalleryFragment.newInstance();
             case 2:
                 return Fragment3.newInstance();
             default:

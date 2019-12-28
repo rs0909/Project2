@@ -28,7 +28,7 @@ public class ContactList {
             do {
                 String phoneNumber = contactCursor.getString(1).replaceAll("-", "");
 
-                phoneNumber = phoneNumber.substring(0, 3) + "-" + phoneNumber.substring(3, 7) + "-" + phoneNumber.substring(6);
+                phoneNumber = phoneNumber.substring(0, 3) + "-" + phoneNumber.substring(3, 7) + "-" + phoneNumber.substring(7);
 
                 Contact contact = new Contact();
                 contact.setId(contactCursor.getLong(0));
