@@ -20,7 +20,7 @@ public class ContactList {
     public ArrayList<Contact> getContactList(){
         Uri uri = ContactsContract.CommonDataKinds.Phone.CONTENT_URI;
 
-        String[] projection = new String[]{ContactsContract.CommonDataKinds.Phone.CONTACT_ID, ContactsContract.CommonDataKinds.Phone.NUMBER, ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME};
+        String[] projection = new String[]{ContactsContract.CommonDataKinds.Phone.CONTACT_ID, ContactsContract.CommonDataKinds.Phone.NUMBER, ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME, ContactsContract.Contacts.PHOTO_ID};
         String sortOrder = ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME + " COLLATE LOCALIZED ASC";
 
         Cursor contactCursor = context.getContentResolver().query(uri, projection, null, null, sortOrder);
@@ -36,6 +36,7 @@ public class ContactList {
                 contact.setId(contactCursor.getLong(0));
                 contact.setPhoneNumber(phoneNumber);
                 contact.setName(contactCursor.getString(2));
+                contact.setPhotoId(contactCursor.getLong(3));
                 contactList.add(contact);
             }while (contactCursor.moveToNext());
         }
@@ -47,7 +48,7 @@ class Contact implements Parcelable {
     private long Id;
     private String phoneNumber;
     private String name;
-    private Uri photo;
+    private long photoId;
 
     public Contact() {
     }
@@ -56,7 +57,7 @@ class Contact implements Parcelable {
         Id = in.readLong();
         phoneNumber = in.readString();
         name = in.readString();
-        photo = in.readParcelable(Uri.class.getClassLoader());
+        photoId = in.readLong();
     }
 
     public static final Creator<Contact> CREATOR = new Creator<Contact>() {
@@ -80,7 +81,7 @@ class Contact implements Parcelable {
     public void setName(String name){
         this.name = name;
     }
-    public void setPhoto(Uri uri){this.photo = uri;}
+    public void setPhotoId(long photoId){this.photoId = photoId;}
 
     public long getId() {
         return Id;
@@ -94,7 +95,7 @@ class Contact implements Parcelable {
         return name;
     }
 
-    public Uri getPhoto(){return photo;}
+    public long getPhotoId(){return photoId;}
 
     @Override
     public int describeContents() {
@@ -106,6 +107,6 @@ class Contact implements Parcelable {
         parcel.writeLong(Id);
         parcel.writeString(phoneNumber);
         parcel.writeString(name);
-        parcel.writeParcelable(photo, i);
+        parcel.writeLong(photoId);
     }
 }

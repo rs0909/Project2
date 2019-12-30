@@ -2,12 +2,14 @@ package com.example.realone;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.ContentUris;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -18,7 +20,7 @@ import java.util.ArrayList;
 
 public class GalleryActivity extends AppCompatActivity {
 
-    ArrayList<String[]> arrayList;
+    ArrayList<Contact> arrayList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,15 +43,15 @@ public class GalleryActivity extends AppCompatActivity {
             imageViews[i].setOnClickListener(new ImageViewClick(i) {
                 @Override
                 public void onClick(View view) {
-                    String[] info = arrayList.get(i);
+                    Contact contact = arrayList.get(i);
                     LargePhotoDialog largePhotoDialog = new LargePhotoDialog(getApplicationContext());
-                    largePhotoDialog.callFunction(Uri.parse(info[1]), phoneNumber);
+                    largePhotoDialog.callFunction(ContentUris.withAppendedId(ContactsContract.Data.CONTENT_URI, arrayList.get(i).getPhotoId()), phoneNumber);
                 }
             });
         }
 
         for(int i = 0; i < arrayList.size(); i++){
-            Uri uri = Uri.parse(arrayList.get(i)[1]);
+            Uri uri = ContentUris.withAppendedId(ContactsContract.Data.CONTENT_URI, arrayList.get(i).getPhotoId());
             InputStream inputStream = null;
             try {
                 inputStream = (InputStream) this.getContentResolver().openInputStream(uri);
