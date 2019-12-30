@@ -9,6 +9,8 @@ import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 
 import com.github.chrisbanes.photoview.PhotoView;
@@ -26,7 +28,14 @@ public class LargePhotoDialog {
     public void callFunction(Uri photoUri, final String phoneNumber){
         final Dialog dialog = new Dialog(context);
         dialog.setContentView(R.layout.dialog_large_photo);
+
+        WindowManager.LayoutParams wm = new WindowManager.LayoutParams();
+        wm.copyFrom(dialog.getWindow().getAttributes());
+        wm.width = 1000;
+        wm.height = 1000;
         dialog.show();
+        Window window = dialog.getWindow();
+        window.setAttributes(wm);
 
         PhotoView photoView = (PhotoView) dialog.findViewById(R.id.photoView);
         Button contactButton = (Button)dialog.findViewById(R.id.button);
@@ -39,7 +48,7 @@ public class LargePhotoDialog {
             e.printStackTrace();
         }
         Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
-        photoView.setImageBitmap(Bitmap.createScaledBitmap(bitmap, 1000, 1000, true));
+        photoView.setImageURI(photoUri);
 
         contactButton.setOnClickListener(new View.OnClickListener() {
             @Override

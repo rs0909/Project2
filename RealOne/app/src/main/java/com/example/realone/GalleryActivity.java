@@ -53,7 +53,7 @@ public class GalleryActivity extends AppCompatActivity {
             }catch (FileNotFoundException e){
                 e.printStackTrace();
             }
-            Bitmap bitmap = ThumbnailUtils.extractThumbnail(BitmapFactory.decodeStream(inputStream), 300, 300);
+            Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
             imageViews[i].setImageBitmap(bitmap);
         }
 
