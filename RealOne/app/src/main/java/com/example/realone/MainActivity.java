@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
 
         ListViewAdapter adapter = new ListViewAdapter(this,arrayList);
         listView.setAdapter(adapter);
+
     }
 
     private void callPermission() {
