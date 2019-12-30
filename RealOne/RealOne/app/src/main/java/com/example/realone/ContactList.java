@@ -3,8 +3,6 @@ package com.example.realone;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
-import android.os.Parcel;
-import android.os.Parcelable;
 import android.provider.ContactsContract;
 
 import java.util.ArrayList;
@@ -43,33 +41,10 @@ public class ContactList {
     }
 }
 
-class Contact implements Parcelable {
+class Contact{
     private long Id;
     private String phoneNumber;
     private String name;
-    private Uri photo;
-
-    public Contact() {
-    }
-
-    protected Contact(Parcel in) {
-        Id = in.readLong();
-        phoneNumber = in.readString();
-        name = in.readString();
-        photo = in.readParcelable(Uri.class.getClassLoader());
-    }
-
-    public static final Creator<Contact> CREATOR = new Creator<Contact>() {
-        @Override
-        public Contact createFromParcel(Parcel in) {
-            return new Contact(in);
-        }
-
-        @Override
-        public Contact[] newArray(int size) {
-            return new Contact[size];
-        }
-    };
 
     public void setId(long Id){
         this.Id = Id;
@@ -80,7 +55,6 @@ class Contact implements Parcelable {
     public void setName(String name){
         this.name = name;
     }
-    public void setPhoto(Uri uri){this.photo = uri;}
 
     public long getId() {
         return Id;
@@ -92,20 +66,5 @@ class Contact implements Parcelable {
 
     public String getName() {
         return name;
-    }
-
-    public Uri getPhoto(){return photo;}
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeLong(Id);
-        parcel.writeString(phoneNumber);
-        parcel.writeString(name);
-        parcel.writeParcelable(photo, i);
     }
 }
