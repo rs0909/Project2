@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".GalleryActivity"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme" />
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <ImageView
+                android:id="@+id/imageView1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="3dp"
+                android:layout_marginRight="3dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                tools:srcCompat="@tools:sample/avatars"
+                android:contentDescription="friends"/>
+
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:srcCompat="@tools:sample/avatars"
+                android:layout_marginLeft="3dp"
+                android:layout_marginRight="3dp"
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp"
+                android:contentDescription="friends"/>
+
+            <ImageView
+                android:id="@+id/imageView3"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:srcCompat="@tools:sample/avatars"
+                android:layout_marginLeft="3dp"
+                android:layout_marginRight="3dp"
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp"
+                android:contentDescription="friends"/>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <ImageView
+                android:id="@+id/imageView4"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:srcCompat="@tools:sample/avatars"
+                android:layout_marginLeft="3dp"
+                android:layout_marginRight="3dp"
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp"
+                android:contentDescription="friends"/>
+
+            <ImageView
+                android:id="@+id/imageView5"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:srcCompat="@tools:sample/avatars"
+                android:layout_marginLeft="3dp"
+                android:layout_marginRight="3dp"
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp"
+                android:contentDescription="friends"/>
+
+            <ImageView
+                android:id="@+id/imageView6"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:srcCompat="@tools:sample/avatars"
+                android:layout_marginLeft="3dp"
+                android:layout_marginRight="3dp"
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp"
+                android:contentDescription="friends"/>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <ImageView
+                android:id="@+id/imageView7"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:srcCompat="@tools:sample/avatars"
+                android:layout_marginLeft="3dp"
+                android:layout_marginRight="3dp"
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp"
+                android:contentDescription="friends"/>
+
+            <ImageView
+                android:id="@+id/imageView8"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:srcCompat="@tools:sample/avatars"
+                android:layout_marginLeft="3dp"
+                android:layout_marginRight="3dp"
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp"
+                android:contentDescription="friends"/>
+
+            <ImageView
+                android:id="@+id/imageView9"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:srcCompat="@tools:sample/avatars"
+                android:layout_marginLeft="3dp"
+                android:layout_marginRight="3dp"
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp"
+                android:contentDescription="friends"/>
+        </TableRow>
+    </TableLayout>
+</LinearLayout>
