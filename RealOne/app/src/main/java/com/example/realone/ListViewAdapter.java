@@ -1,6 +1,8 @@
 package com.example.realone;
 
 import android.content.Context;
+import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -53,6 +55,19 @@ public class ListViewAdapter extends BaseAdapter {
         view.setName(item.getName());
         view.setImage(item.getPhotoId());
         //이렇게 해당 position에 맞는 값으로 설정해줍니다.
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ContactHistoryDBHelper contactHistoryDBHelper = new ContactHistoryDBHelper(context ,null,null ,1 );
+                SettingContactHistoryDB settingContactHistoryDB = new SettingContactHistoryDB(context);
+                SQLiteDatabase sqLiteDatabase = contactHistoryDBHelper.getReadableDatabase();
+                ArrayList<Contact> arrayList = settingContactHistoryDB.getFriendsArray(sqLiteDatabase);
+
+                Intent intent = new Intent(context, GalleryActivity.class);
+                intent.putParcelableArrayListExtra("friendsList", arrayList);
+                context.startActivity(intent);
+            }
+        });
 
         //그렇게 설정을 잘 해놓은 다음에 view를 반환해야 데이터값이 들어간 레이아웃이 반환될거에요~
         return view;

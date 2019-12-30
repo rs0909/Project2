@@ -107,13 +107,16 @@ class SettingContactHistoryDB{
     }
 
     //개인 연락처에서 통화를 많이한 친구들을 골라냄
-    public ArrayList<String[]> getFriendsArray(SQLiteDatabase db){
-        ArrayList<String[]> arrayList = new ArrayList<>();
+    public ArrayList<Contact> getFriendsArray(SQLiteDatabase db){
+        ArrayList<Contact> arrayList = new ArrayList<>();
         int i = 0;
         Cursor cursor = db.rawQuery("SELECT * FROM CONTACT_HISTORY_TABLE order by COUNT desc", null);
         if(cursor.moveToFirst()){
             do{
-                arrayList.add(new String[]{cursor.getString(1), cursor.getString(2)});
+                Contact contact = new Contact();
+                contact.setName(cursor.getString(1));
+                contact.setPhoneNumber(cursor.getString(2));
+                arrayList.add(contact);
                 i++;
                 if(i == 50){
                     return arrayList;
@@ -124,13 +127,13 @@ class SettingContactHistoryDB{
     }
 
     //내가 통화를 많이한 친구들과 가입해있는 친구들을 비교하여 통화를 많이하고 가입도 되어있는 친구들만 골라낸다.
-    public ArrayList<String[]> getJoinedFriendArray(ArrayList<String[]> joinedPeopleArray){
+    public ArrayList<Contact> getJoinedFriendArray(ArrayList<Contact> joinedPeopleArray){
         SQLiteDatabase db = contactHistoryDBHelper.getReadableDatabase();
-        ArrayList<String[]> friendArray = getFriendsArray(db);
-        ArrayList<String[]> joinedFriedArray = new ArrayList<>();
+        ArrayList<Contact> friendArray = getFriendsArray(db);
+        ArrayList<Contact> joinedFriedArray = new ArrayList<>();
         for(int i = 0; i < friendArray.size(); i++){
             for(int j = 0; j < joinedPeopleArray.size(); j++){
-                if(friendArray.get(i)[1].equals(joinedPeopleArray.get(j)[1])){
+                if(friendArray.get(i).getPhoneNumber().equals(joinedPeopleArray.get(j).getPhoneNumber())){
                     joinedFriedArray.add(friendArray.get(i));
                     j = joinedPeopleArray.size()-1;
                 }
