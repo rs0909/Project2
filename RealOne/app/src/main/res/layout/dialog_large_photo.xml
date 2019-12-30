@@ -10,7 +10,8 @@
         android:id="@+id/photoView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1"/>
+        android:layout_weight="1"
+        android:scaleType="centerCrop"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -23,13 +24,13 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="Button" />
+            android:text="전화걸기" />
 
         <Button
             android:id="@+id/button2"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="Button" />
+            android:text="취소" />
     </LinearLayout>
 </LinearLayout>

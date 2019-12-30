@@ -7,7 +7,10 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.ThumbnailUtils;
 import android.net.Uri;
+import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 
 import com.github.chrisbanes.photoview.PhotoView;
@@ -25,7 +28,14 @@ public class LargePhotoDialog {
     public void callFunction(Uri photoUri, final String phoneNumber){
         final Dialog dialog = new Dialog(context);
         dialog.setContentView(R.layout.dialog_large_photo);
+
+        WindowManager.LayoutParams wm = new WindowManager.LayoutParams();
+        wm.copyFrom(dialog.getWindow().getAttributes());
+        wm.width = 1000;
+        wm.height = 1000;
         dialog.show();
+        Window window = dialog.getWindow();
+        window.setAttributes(wm);
 
         PhotoView photoView = (PhotoView) dialog.findViewById(R.id.photoView);
         Button contactButton = (Button)dialog.findViewById(R.id.button);
@@ -37,13 +47,15 @@ public class LargePhotoDialog {
         }catch (FileNotFoundException e){
             e.printStackTrace();
         }
-        Bitmap bitmap = ThumbnailUtils.extractThumbnail(BitmapFactory.decodeStream(inputStream), photoView.getWidth(), photoView.getHeight());
-        photoView.setImageBitmap(bitmap);
+        Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
+        photoView.setImageURI(photoUri);
 
         contactButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel :" + phoneNumber));
+
+                Intent intent = new Intent(Intent.ACTION_DIAL);
+                intent.setData(Uri.parse("tel:" + phoneNumber.replaceAll("-", "")));
                 context.startActivity(intent);
             }
         });

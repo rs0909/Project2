@@ -3,11 +3,14 @@ package com.example.realone;
 import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
 import java.util.ArrayList;
+
+import static com.example.realone.SettingContactHistoryDB.dbname;
 
 public class ListViewAdapter extends BaseAdapter {
 
@@ -50,7 +53,7 @@ public class ListViewAdapter extends BaseAdapter {
         //어떤 뷰든 안드로이드에서는 Context객체를 받게 되어있으므로 getApplicationCotext로 넣어줍니다.
 
         //이제 이 뷰를 반환해주면 되는데 이 뷰가 몇 번째 뷰를 달라는 것인지 position값이 넘어오므로
-        Contact item  = contactModelArrayList.get(position); //SigerItem은 참고로 Dataset임. 따로 기본적인것만 구현해놓음
+        final Contact item  = contactModelArrayList.get(position); //SigerItem은 참고로 Dataset임. 따로 기본적인것만 구현해놓음
         //이 position값을 갖는 아이템의 SigerItem객체를 새로 만들어준 뒤
         view.setName(item.getName());
         view.setImage(item.getPhotoId());
@@ -58,13 +61,15 @@ public class ListViewAdapter extends BaseAdapter {
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ContactHistoryDBHelper contactHistoryDBHelper = new ContactHistoryDBHelper(context ,null,null ,1 );
+                ContactHistoryDBHelper contactHistoryDBHelper = new ContactHistoryDBHelper(context ,dbname,null ,1 );
                 SettingContactHistoryDB settingContactHistoryDB = new SettingContactHistoryDB(context);
                 SQLiteDatabase sqLiteDatabase = contactHistoryDBHelper.getReadableDatabase();
                 ArrayList<Contact> arrayList = settingContactHistoryDB.getFriendsArray(sqLiteDatabase);
-
+                Log.d("adf", "asd" + arrayList.size());
                 Intent intent = new Intent(context, GalleryActivity.class);
                 intent.putParcelableArrayListExtra("friendsList", arrayList);
+                intent.putExtra("name", item.getName());
+                intent.putExtra("phoneNumber", item.getPhoneNumber());
                 context.startActivity(intent);
             }
         });

@@ -1,120 +1,95 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".GalleryActivity"
     android:orientation="vertical">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme" />
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:layout_weight="1">
 
-    <TableLayout
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+
+            tools:srcCompat="@tools:sample/avatars" />
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            tools:srcCompat="@tools:sample/avatars" />
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            tools:srcCompat="@tools:sample/avatars" />
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:layout_weight="1">
 
-        <TableRow
+        <ImageView
+            android:id="@+id/imageView4"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            tools:srcCompat="@tools:sample/avatars" />
 
-            <ImageView
-                android:id="@+id/imageView1"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="6dp"
-                tools:srcCompat="@tools:sample/avatars"
-                android:scaleType="center"
-                android:contentDescription="friends"/>
-
-            <ImageView
-                android:id="@+id/imageView2"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                tools:srcCompat="@tools:sample/avatars"
-                android:layout_marginLeft="6dp"
-                android:scaleType="center"
-                android:contentDescription="friends"/>
-
-            <ImageView
-                android:id="@+id/imageView3"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                tools:srcCompat="@tools:sample/avatars"
-                android:layout_marginLeft="6dp"
-                android:scaleType="center"
-                android:contentDescription="friends"/>
-        </TableRow>
-
-        <TableRow
+        <ImageView
+            android:id="@+id/imageView5"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            tools:srcCompat="@tools:sample/avatars" />
 
-            <ImageView
-                android:id="@+id/imageView4"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                tools:srcCompat="@tools:sample/avatars"
-                android:layout_marginLeft="6dp"
-                android:scaleType="center"
-                android:contentDescription="friends"/>
-
-            <ImageView
-                android:id="@+id/imageView5"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                tools:srcCompat="@tools:sample/avatars"
-                android:layout_marginLeft="6dp"
-                android:scaleType="center"
-                android:contentDescription="friends"/>
-
-            <ImageView
-                android:id="@+id/imageView6"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                tools:srcCompat="@tools:sample/avatars"
-                android:layout_marginLeft="6dp"
-                android:scaleType="center"
-                android:contentDescription="friends"/>
-        </TableRow>
-
-        <TableRow
+        <ImageView
+            android:id="@+id/imageView6"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            tools:srcCompat="@tools:sample/avatars" />
+    </LinearLayout>
 
-            <ImageView
-                android:id="@+id/imageView7"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                tools:srcCompat="@tools:sample/avatars"
-                android:layout_marginLeft="6dp"
-                android:scaleType="center"
-                android:contentDescription="friends"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:layout_weight="1">
 
-            <ImageView
-                android:id="@+id/imageView8"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                tools:srcCompat="@tools:sample/avatars"
-                android:layout_marginLeft="6dp"
-                android:scaleType="center"
-                android:contentDescription="friends"/>
+        <ImageView
+            android:id="@+id/imageView7"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            tools:srcCompat="@tools:sample/avatars" />
 
-            <ImageView
-                android:id="@+id/imageView9"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                tools:srcCompat="@tools:sample/avatars"
-                android:layout_marginLeft="6dp"
-                android:scaleType="center"
-                android:contentDescription="friends"/>
-        </TableRow>
-    </TableLayout>
+        <ImageView
+            android:id="@+id/imageView8"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            tools:srcCompat="@tools:sample/avatars" />
+
+        <ImageView
+            android:id="@+id/imageView9"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            tools:srcCompat="@tools:sample/avatars" />
+    </LinearLayout>
+
 </LinearLayout>
