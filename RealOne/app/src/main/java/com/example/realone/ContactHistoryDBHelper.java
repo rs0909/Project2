@@ -7,6 +7,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.CallLog;
+import android.provider.ContactsContract;
+import android.util.Log;
 
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
@@ -27,7 +29,8 @@ public class ContactHistoryDBHelper extends SQLiteOpenHelper {
         stringBuffer.append(" CREATE TABLE CONTACT_HISTORY_TABLE ( ");
         stringBuffer.append(" NAME TEXT, ");
         stringBuffer.append(" PHONE TEXT, ");
-        stringBuffer.append(" COUNT INTEGER ) ");
+        stringBuffer.append(" COUNT INTEGER, ");
+        stringBuffer.append(" PHOTO INTEGER ) ");
 
         db.execSQL(stringBuffer.toString());
     }
@@ -57,7 +60,6 @@ class SettingContactHistoryDB{
         int permissionCheck = ContextCompat.checkSelfPermission(context, Manifest.permission.READ_CALL_LOG);
         if(permissionCheck == PackageManager.PERMISSION_GRANTED){
             Cursor cursor = context.getContentResolver().query(CallLog.Calls.CONTENT_URI, null, null, null, CallLog.Calls.DEFAULT_SORT_ORDER);
-
             if(cursor.getCount() > 0){
                 while(cursor.moveToNext()){
                     String name = cursor.getString(cursor.getColumnIndex(CallLog.Calls.CACHED_NAME));
@@ -74,19 +76,30 @@ class SettingContactHistoryDB{
         int count = 1;
         String sql;
         Object[] objects;
+        long photoId = 0;
+        Cursor contactCurcor = context.getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, new String[]{ContactsContract.CommonDataKinds.Phone.NUMBER, ContactsContract.Contacts.PHOTO_ID}, null, null, null);
+        if(contactCurcor.moveToFirst()){
+            do{
+                if(phoneNumber.equals( contactCurcor.getString(0))){
+                    photoId = contactCurcor.getLong(1);
+
+                    break;
+                }
+            }while (contactCurcor.moveToNext());
+        }
 
         db = contactHistoryDBHelper.getWritableDatabase();
 
 
         count = checkCount(name, phoneNumber);
         if( count == 0){
-            sql = String.format("INSERT INTO CONTACT_HISTORY_TABLE ( NAME, PHONE, COUNT ) VALUES(?, ?, ?);");
-            objects = new Object[]{name, phoneNumber, defaultCount};
+            sql = String.format("INSERT INTO CONTACT_HISTORY_TABLE ( NAME, PHONE, COUNT, PHOTO ) VALUES(?, ?, ?, ?);");
+            objects = new Object[]{name, phoneNumber, defaultCount, photoId};
         }else{
 
             db.execSQL("DELETE FROM CONTACT_HISTORY_TABLE WHERE PHONE = '" + phoneNumber + "';");
-            sql = String.format("INSERT INTO CONTACT_HISTORY_TABLE ( NAME, PHONE, COUNT ) VALUES (?, ?, ?);");
-            objects = new Object[]{name, phoneNumber, count+1};
+            sql = String.format("INSERT INTO CONTACT_HISTORY_TABLE ( NAME, PHONE, COUNT, PHOTO ) VALUES (?, ?, ?, ?);");
+            objects = new Object[]{name, phoneNumber, count+1, photoId};
         }
 
         db.execSQL(sql, objects);
@@ -98,8 +111,8 @@ class SettingContactHistoryDB{
         Cursor cursor = db.rawQuery(sql, null);
         if(cursor.getCount() > 0){
             while(cursor.moveToNext()){
-                if(cursor.getString(1).equals(name) && cursor.getString(2).equals(phone)){
-                    return cursor.getInt(3);
+                if(cursor.getString(0).equals(name) && cursor.getString(1).equals(phone)){
+                    return cursor.getInt(2);
                 }
             }
         }
@@ -114,8 +127,9 @@ class SettingContactHistoryDB{
         if(cursor.moveToFirst()){
             do{
                 Contact contact = new Contact();
-                contact.setName(cursor.getString(1));
-                contact.setPhoneNumber(cursor.getString(2));
+                contact.setName(cursor.getString(0));
+                contact.setPhoneNumber(cursor.getString(1));
+                contact.setPhotoId(cursor.getLong(3));
                 arrayList.add(contact);
                 i++;
                 if(i == 50){

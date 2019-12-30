@@ -7,6 +7,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.ThumbnailUtils;
 import android.net.Uri;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -37,13 +38,15 @@ public class LargePhotoDialog {
         }catch (FileNotFoundException e){
             e.printStackTrace();
         }
-        Bitmap bitmap = ThumbnailUtils.extractThumbnail(BitmapFactory.decodeStream(inputStream), photoView.getWidth(), photoView.getHeight());
-        photoView.setImageBitmap(bitmap);
+        Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
+        photoView.setImageBitmap(Bitmap.createScaledBitmap(bitmap, 1000, 1000, true));
 
         contactButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel :" + phoneNumber));
+
+                Intent intent = new Intent(Intent.ACTION_DIAL);
+                intent.setData(Uri.parse("tel:" + phoneNumber.replaceAll("-", "")));
                 context.startActivity(intent);
             }
         });
