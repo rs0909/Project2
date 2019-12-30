@@ -30,6 +30,14 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         callPermission();
 
+
+        ListView listView = (ListView)findViewById(R.id.listview);
+        ContactList contact = new ContactList(this);
+        ArrayList <Contact> arrayList = contact.getContactList();
+
+        ListViewAdapter adapter = new ListViewAdapter(this,arrayList);
+        listView.setAdapter(adapter);
+
     }
 
     private void callPermission() {
