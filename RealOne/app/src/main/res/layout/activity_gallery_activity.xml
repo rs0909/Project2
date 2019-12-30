@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -28,11 +27,9 @@
                 android:id="@+id/imageView1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="3dp"
-                android:layout_marginRight="3dp"
-                android:paddingTop="5dp"
-                android:paddingBottom="5dp"
+                android:layout_marginLeft="6dp"
                 tools:srcCompat="@tools:sample/avatars"
+                android:scaleType="center"
                 android:contentDescription="friends"/>
 
             <ImageView
@@ -40,10 +37,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 tools:srcCompat="@tools:sample/avatars"
-                android:layout_marginLeft="3dp"
-                android:layout_marginRight="3dp"
-                android:paddingBottom="5dp"
-                android:paddingTop="5dp"
+                android:layout_marginLeft="6dp"
+                android:scaleType="center"
                 android:contentDescription="friends"/>
 
             <ImageView
@@ -51,10 +46,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 tools:srcCompat="@tools:sample/avatars"
-                android:layout_marginLeft="3dp"
-                android:layout_marginRight="3dp"
-                android:paddingBottom="5dp"
-                android:paddingTop="5dp"
+                android:layout_marginLeft="6dp"
+                android:scaleType="center"
                 android:contentDescription="friends"/>
         </TableRow>
 
@@ -68,10 +61,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 tools:srcCompat="@tools:sample/avatars"
-                android:layout_marginLeft="3dp"
-                android:layout_marginRight="3dp"
-                android:paddingBottom="5dp"
-                android:paddingTop="5dp"
+                android:layout_marginLeft="6dp"
+                android:scaleType="center"
                 android:contentDescription="friends"/>
 
             <ImageView
@@ -79,10 +70,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 tools:srcCompat="@tools:sample/avatars"
-                android:layout_marginLeft="3dp"
-                android:layout_marginRight="3dp"
-                android:paddingBottom="5dp"
-                android:paddingTop="5dp"
+                android:layout_marginLeft="6dp"
+                android:scaleType="center"
                 android:contentDescription="friends"/>
 
             <ImageView
@@ -90,10 +79,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 tools:srcCompat="@tools:sample/avatars"
-                android:layout_marginLeft="3dp"
-                android:layout_marginRight="3dp"
-                android:paddingBottom="5dp"
-                android:paddingTop="5dp"
+                android:layout_marginLeft="6dp"
+                android:scaleType="center"
                 android:contentDescription="friends"/>
         </TableRow>
 
@@ -107,10 +94,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 tools:srcCompat="@tools:sample/avatars"
-                android:layout_marginLeft="3dp"
-                android:layout_marginRight="3dp"
-                android:paddingBottom="5dp"
-                android:paddingTop="5dp"
+                android:layout_marginLeft="6dp"
+                android:scaleType="center"
                 android:contentDescription="friends"/>
 
             <ImageView
@@ -118,10 +103,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 tools:srcCompat="@tools:sample/avatars"
-                android:layout_marginLeft="3dp"
-                android:layout_marginRight="3dp"
-                android:paddingBottom="5dp"
-                android:paddingTop="5dp"
+                android:layout_marginLeft="6dp"
+                android:scaleType="center"
                 android:contentDescription="friends"/>
 
             <ImageView
@@ -129,10 +112,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 tools:srcCompat="@tools:sample/avatars"
-                android:layout_marginLeft="3dp"
-                android:layout_marginRight="3dp"
-                android:paddingBottom="5dp"
-                android:paddingTop="5dp"
+                android:layout_marginLeft="6dp"
+                android:scaleType="center"
                 android:contentDescription="friends"/>
         </TableRow>
     </TableLayout>

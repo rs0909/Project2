@@ -9,7 +9,8 @@ import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
+
+import com.github.chrisbanes.photoview.PhotoView;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -26,10 +27,9 @@ public class LargePhotoDialog {
         dialog.setContentView(R.layout.dialog_large_photo);
         dialog.show();
 
-        ImageView imageView = (ImageView)dialog.findViewById(R.id.imageView);
+        PhotoView photoView = (PhotoView) dialog.findViewById(R.id.photoView);
         Button contactButton = (Button)dialog.findViewById(R.id.button);
         Button cancelButton = (Button)dialog.findViewById(R.id.button2);
-
 
         InputStream inputStream = null;
         try {
@@ -37,8 +37,8 @@ public class LargePhotoDialog {
         }catch (FileNotFoundException e){
             e.printStackTrace();
         }
-        Bitmap bitmap = ThumbnailUtils.extractThumbnail(BitmapFactory.decodeStream(inputStream), imageView.getWidth(), imageView.getHeight());
-        imageView.setImageBitmap(bitmap);
+        Bitmap bitmap = ThumbnailUtils.extractThumbnail(BitmapFactory.decodeStream(inputStream), photoView.getWidth(), photoView.getHeight());
+        photoView.setImageBitmap(bitmap);
 
         contactButton.setOnClickListener(new View.OnClickListener() {
             @Override

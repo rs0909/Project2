@@ -30,11 +30,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         callPermission();
 
-        Intent intent = new Intent(this, GalleryActivity.class);
-        intent.putExtra("uri", "dkfj");
-        intent.putExtra("name", "dongsan mat");
-        intent.putExtra("phoneNumber", "01097512201");
-        startActivity(intent);
 
     }
 

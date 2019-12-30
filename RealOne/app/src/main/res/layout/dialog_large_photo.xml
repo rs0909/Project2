@@ -6,11 +6,10 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <ImageView
-        android:id="@+id/imageView"
+    <com.github.chrisbanes.photoview.PhotoView
+        android:id="@+id/photoView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:srcCompat="@tools:sample/avatars"
         android:layout_weight="1"/>
 
     <LinearLayout
