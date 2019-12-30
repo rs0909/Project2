@@ -17,6 +17,8 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
+    private ListView listview;
+
     private final int PERMISSIONS_READ_CONTACTS = 1000;
     private final int PERMISSIONS_READ_EXTERNAL_STORAGE = 1001;
     private final int PERMISSIONS_ACCESS_MEDIA_LOCATION = 1002;
@@ -28,13 +30,19 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         callPermission();
 
-        Intent intent = new Intent(this, GalleryActivity.class);
-        intent.putExtra("uri", "dkfj");
-        intent.putExtra("name", "dongsan mat");
-        intent.putExtra("phoneNumber", "01097512201");
-        startActivity(intent);
+        ContactList contactList = new ContactList(this);
+        ArrayList<Contact> contactModel = contactList.getContactList();
+
+        ListView listView = findViewById(R.id.listview);
+
+        ListViewAdapter adapter = new ListViewAdapter(this,contactModel);
+
+        listView.setAdapter(adapter);
+
+
 
     }
 

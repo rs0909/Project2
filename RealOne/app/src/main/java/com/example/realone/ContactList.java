@@ -7,7 +7,10 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.provider.ContactsContract;
 
+import java.net.URI;
 import java.util.ArrayList;
+
+import static android.provider.Telephony.Mms.Addr.CONTACT_ID;
 
 public class ContactList {
 
@@ -20,7 +23,9 @@ public class ContactList {
     public ArrayList<Contact> getContactList(){
         Uri uri = ContactsContract.CommonDataKinds.Phone.CONTENT_URI;
 
-        String[] projection = new String[]{ContactsContract.CommonDataKinds.Phone.CONTACT_ID, ContactsContract.CommonDataKinds.Phone.NUMBER, ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME};
+        String[] projection = new String[]{ContactsContract.CommonDataKinds.Phone.CONTACT_ID, ContactsContract.CommonDataKinds.Phone.NUMBER, ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME,
+                                ContactsContract.CommonDataKinds.Phone.PHOTO_ID,ContactsContract.Contacts.PHOTO_THUMBNAIL_URI};
+
         String sortOrder = ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME + " COLLATE LOCALIZED ASC";
 
         Cursor contactCursor = context.getContentResolver().query(uri, projection, null, null, sortOrder);
@@ -36,6 +41,7 @@ public class ContactList {
                 contact.setId(contactCursor.getLong(0));
                 contact.setPhoneNumber(phoneNumber);
                 contact.setName(contactCursor.getString(2));
+                contact.setPhoto(Uri.parse(contactCursor.getString(4)));
                 contactList.add(contact);
             }while (contactCursor.moveToNext());
         }
