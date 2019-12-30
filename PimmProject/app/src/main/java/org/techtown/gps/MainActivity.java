@@ -177,7 +177,7 @@ public class MainActivity extends AppCompatActivity {
             isPermission = true;
         }
     }
-    //shibal
+
     private void settingAlarm(long time, int rawTime){
         ComponentName receiver = new ComponentName(this, AlarmSettingReceiver1.class);
         PackageManager pm = this.getPackageManager();
