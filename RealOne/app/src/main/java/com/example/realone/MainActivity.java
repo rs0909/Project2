@@ -18,8 +18,8 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
     private final int PERMISSIONS_READ_CONTACTS = 1000;
-    private final int PERMISSIONS_READ_EXTERNAL_STORAGE = 1001;
-    private final int PERMISSIONS_ACCESS_MEDIA_LOCATION = 1002;
+//    private final int PERMISSIONS_READ_EXTERNAL_STORAGE = 1001;
+//    private final int PERMISSIONS_ACCESS_MEDIA_LOCATION = 1002;
     private final int PERMISSIONS_READ_CALL_LOG = 1003;
 
     private boolean isPermission = false;
@@ -39,6 +39,8 @@ public class MainActivity extends AppCompatActivity {
             ListViewAdapter adapter = new ListViewAdapter(this,arrayList);
             listView.setAdapter(adapter);
         }
+        else callPermission();
+
 
 
     }
@@ -51,17 +53,17 @@ public class MainActivity extends AppCompatActivity {
             isPermission = true;
         }
 
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
-            requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, PERMISSIONS_READ_EXTERNAL_STORAGE);
-        }else{
-            isPermission = true;
-        }
-
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && checkSelfPermission(Manifest.permission.ACCESS_MEDIA_LOCATION) != PackageManager.PERMISSION_GRANTED){
-            requestPermissions(new String[]{Manifest.permission.ACCESS_MEDIA_LOCATION}, PERMISSIONS_ACCESS_MEDIA_LOCATION);
-        }else{
-            isPermission = true;
-        }
+//        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
+//            requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, PERMISSIONS_READ_EXTERNAL_STORAGE);
+//        }else{
+//            isPermission = true;
+//        }
+//
+//        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && checkSelfPermission(Manifest.permission.ACCESS_MEDIA_LOCATION) != PackageManager.PERMISSION_GRANTED){
+//            requestPermissions(new String[]{Manifest.permission.ACCESS_MEDIA_LOCATION}, PERMISSIONS_ACCESS_MEDIA_LOCATION);
+//        }else{
+//            isPermission = true;
+//        }
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && checkSelfPermission(Manifest.permission.READ_CALL_LOG) != PackageManager.PERMISSION_GRANTED){
             requestPermissions(new String[]{Manifest.permission.READ_CALL_LOG}, PERMISSIONS_READ_CALL_LOG);
         }else{
