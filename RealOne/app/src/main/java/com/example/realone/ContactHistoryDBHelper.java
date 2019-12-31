@@ -75,23 +75,27 @@ class SettingContactHistoryDB{
         int defaultCount = 1;
         int count = 1;
         String sql;
+        String name1 = null;
+        String phoneNumber1 = null;
         Object[] objects;
         long photoId = 0;
-        Cursor contactCurcor = context.getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, new String[]{ContactsContract.CommonDataKinds.Phone.NUMBER, ContactsContract.Contacts.PHOTO_ID}, null, null, null);
+        Cursor contactCurcor = context.getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, new String[]{ContactsContract.CommonDataKinds.Phone.NUMBER, ContactsContract.Contacts.PHOTO_ID, ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME}, null, null, null);
         if(contactCurcor.moveToFirst()){
             do{
                 if(phoneNumber.equals( contactCurcor.getString(0))){
                     photoId = contactCurcor.getLong(1);
-
+                    name1 = contactCurcor.getString(2);
+                    phoneNumber1 = contactCurcor.getString(0);
                     break;
                 }
             }while (contactCurcor.moveToNext());
         }
-
+        if(name1 == null){
+            return;
+        }
         db = contactHistoryDBHelper.getWritableDatabase();
 
-
-        count = checkCount(name, phoneNumber);
+        count = checkCount(name1, phoneNumber1);
         if( count == 0){
             sql = String.format("INSERT INTO CONTACT_HISTORY_TABLE ( NAME, PHONE, COUNT, PHOTO ) VALUES(?, ?, ?, ?);");
             objects = new Object[]{name, phoneNumber, defaultCount, photoId};
@@ -122,7 +126,6 @@ class SettingContactHistoryDB{
     //개인 연락처에서 통화를 많이한 친구들을 골라냄
     public ArrayList<Contact> getFriendsArray(SQLiteDatabase db){
         ArrayList<Contact> arrayList = new ArrayList<>();
-        int i = 0;
         Cursor cursor = db.rawQuery("SELECT * FROM CONTACT_HISTORY_TABLE order by COUNT desc", null);
         if(cursor.moveToFirst()){
             do{
@@ -131,10 +134,6 @@ class SettingContactHistoryDB{
                 contact.setPhoneNumber(cursor.getString(1));
                 contact.setPhotoId(cursor.getLong(3));
                 arrayList.add(contact);
-                i++;
-                if(i == 50){
-                    return arrayList;
-                }
             }while(cursor.moveToNext());
         }
         return arrayList;
