@@ -64,7 +64,9 @@ class SettingContactHistoryDB{
                 while(cursor.moveToNext()){
                     String name = cursor.getString(cursor.getColumnIndex(CallLog.Calls.CACHED_NAME));
                     String phoneNumber = cursor.getString(cursor.getColumnIndex(CallLog.Calls.CACHED_FORMATTED_NUMBER));
-                    settingDBLine(name, phoneNumber);
+                    if(phoneNumber != null){
+                        settingDBLine(name, phoneNumber);
+                    }
                 }
             }
         }
@@ -136,6 +138,7 @@ class SettingContactHistoryDB{
                 arrayList.add(contact);
             }while(cursor.moveToNext());
         }
+        Log.d("사이즈", "" + arrayList.size());
         return arrayList;
     }
 
