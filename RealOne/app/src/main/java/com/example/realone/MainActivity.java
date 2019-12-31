@@ -28,7 +28,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         callPermission();
+
         while (!checkPermission()){
             //ㅈㄴ 임시방편임
         }
@@ -38,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
         ArrayList <Contact> arrayList = contact.getContactList();
         ListViewAdapter adapter = new ListViewAdapter(this,arrayList);
         listView.setAdapter(adapter);
+
     }
 
 
@@ -48,7 +51,6 @@ public class MainActivity extends AppCompatActivity {
                 requestPermissions(new String[]{Manifest.permission.READ_CONTACTS, Manifest.permission.READ_CALL_LOG}, 0);
             }
         }
-
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && checkSelfPermission(Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
             requestPermissions(new String[]{Manifest.permission.READ_CONTACTS}, PERMISSIONS_READ_CONTACTS);
         }
