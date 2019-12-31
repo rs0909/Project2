@@ -35,6 +35,9 @@ public class MainActivity extends AppCompatActivity {
             //ㅈㄴ 임시방편임
         }
 
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
+
         ListView listView = (ListView)findViewById(R.id.listview);
         ContactList contact = new ContactList(this);
         ArrayList <Contact> arrayList = contact.getContactList();

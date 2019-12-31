@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Point;
 import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.util.Log;
@@ -41,13 +42,6 @@ public class LargePhotoDialog {
         Button contactButton = (Button)dialog.findViewById(R.id.button);
         Button cancelButton = (Button)dialog.findViewById(R.id.button2);
 
-        InputStream inputStream = null;
-        try {
-            inputStream = (InputStream) context.getContentResolver().openInputStream(photoUri);
-        }catch (FileNotFoundException e){
-            e.printStackTrace();
-        }
-        Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
         photoView.setImageURI(photoUri);
 
         contactButton.setOnClickListener(new View.OnClickListener() {
