@@ -97,7 +97,7 @@ public class ListViewAdapter extends BaseAdapter {
 
                 Log.d("tag", "msg");
                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                builder.setTitle("Wanna send?");
+                builder.setTitle("Seen Someone?");
                 builder.setMessage("GO for it!");
                 builder.setPositiveButton("Yeah",
                         new DialogInterface.OnClickListener() {
