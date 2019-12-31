@@ -47,6 +47,7 @@ class SettingContactHistoryDB{
     private Context context;
     final static String dbname = "CONTACT_HISTORY.db";
     private ContactHistoryDBHelper  contactHistoryDBHelper;
+    private boolean haveNoCallLog = false;
 
     //연락처를 읽어서 데이터베이스에 저장한다.
     public SettingContactHistoryDB(Context context) {
@@ -54,6 +55,10 @@ class SettingContactHistoryDB{
         contactHistoryDBHelper = new ContactHistoryDBHelper(context, dbname, null, 1);
         contactHistoryDBHelper.getWritableDatabase().execSQL("DELETE FROM CONTACT_HISTORY_TABLE;");
         settingDB();
+    }
+
+    public boolean getHaveNoCallLog(){
+        return haveNoCallLog;
     }
 
     public void settingDB(){
@@ -68,6 +73,9 @@ class SettingContactHistoryDB{
                         settingDBLine(name, phoneNumber);
                     }
                 }
+            }else{
+                haveNoCallLog = true;
+                return;
             }
         }
     }
@@ -138,7 +146,6 @@ class SettingContactHistoryDB{
                 arrayList.add(contact);
             }while(cursor.moveToNext());
         }
-        Log.d("사이즈", "" + arrayList.size());
         return arrayList;
     }
 

@@ -61,13 +61,16 @@ public class ListViewAdapter extends BaseAdapter {
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = new Intent(context, GalleryActivity.class);
                 ContactHistoryDBHelper contactHistoryDBHelper = new ContactHistoryDBHelper(context ,dbname,null ,1 );
                 SettingContactHistoryDB settingContactHistoryDB = new SettingContactHistoryDB(context);
-                SQLiteDatabase sqLiteDatabase = contactHistoryDBHelper.getReadableDatabase();
-                ArrayList<Contact> arrayList = settingContactHistoryDB.getFriendsArray(sqLiteDatabase);
-                Log.d("adf", "asd" + arrayList.size());
-                Intent intent = new Intent(context, GalleryActivity.class);
-                intent.putParcelableArrayListExtra("friendsList", arrayList);
+                if(settingContactHistoryDB.getHaveNoCallLog() == true){
+                    intent.putParcelableArrayListExtra("friendsList", contactModelArrayList);
+                }else{
+                    SQLiteDatabase sqLiteDatabase = contactHistoryDBHelper.getReadableDatabase();
+                    ArrayList<Contact> arrayList = settingContactHistoryDB.getFriendsArray(sqLiteDatabase);
+                    intent.putParcelableArrayListExtra("friendsList", arrayList);
+                }
                 intent.putExtra("name", item.getName());
                 intent.putExtra("phoneNumber", item.getPhoneNumber());
                 context.startActivity(intent);
