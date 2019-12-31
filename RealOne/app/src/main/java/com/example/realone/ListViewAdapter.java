@@ -88,50 +88,46 @@ public class ListViewAdapter extends BaseAdapter {
 
 
         ImageButton imgbtn1 = (ImageButton) view.findViewById(R.id.imageButton1);
+
         imgbtn1.setOnClickListener(new View.OnClickListener(){
 
             @Override
             public void onClick(View v) {
-                final String phoneNo = item.getPhoneNumber();
+
+                final String Phonenum = item.getPhoneNumber();
                 final String sms = "Hey man";
 
-                Log.d("tag", "msg");
-                AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                builder.setTitle("Seen Someone?");
-                builder.setMessage("GO for it!");
-                builder.setPositiveButton("Yeah",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                try {
-                                    //전송
-                                    SmsManager smsManager = SmsManager.getDefault();
-                                    smsManager.sendTextMessage(phoneNo, null, sms, null, null);
-                                    Toast.makeText(context, "전송 완료!", Toast.LENGTH_LONG).show();
-                                } catch (Exception e) {
-                                    Toast.makeText(context, "SMS faild, please try again later!", Toast.LENGTH_LONG).show();
-                                    e.printStackTrace();
-                                }
-                            }
-                        });
-                builder.setNegativeButton("Nope",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                Toast.makeText(context, "아니오를 선택했습니다.", Toast.LENGTH_LONG).show();
-                            }
-                        });
+                SmsDialogue smsDialogue;
+                smsDialogue = new SmsDialogue(context);
+                smsDialogue.callFunction(Phonenum,sms);
 
-                builder.show();
+//                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+//                builder.setTitle("친구를 찔러볼까요?");
+//                builder.setMessage("확인");
+//                builder.setPositiveButton("Yeah",
+//                        new DialogInterface.OnClickListener() {
+//                            public void onClick(DialogInterface dialog, int which) {
+//                                try {
+//                                    //전송
+//                                    SmsManager smsManager = SmsManager.getDefault();
+//                                    smsManager.sendTextMessage(Phonenum, null, sms, null, null);
+//                                    Toast.makeText(context, "응원합니다.", Toast.LENGTH_LONG).show();
+//                                } catch (Exception e) {
+//                                    Toast.makeText(context, "SMS faild, please try again later!", Toast.LENGTH_LONG).show();
+//                                    e.printStackTrace();
+//                                }
+//                            }
+//                        });
+//                builder.setNegativeButton("Nope",
+//                        new DialogInterface.OnClickListener() {
+//                            public void onClick(DialogInterface dialog, int which) {
+//                                Toast.makeText(context, "마 뭐하누", Toast.LENGTH_LONG).show();
+//                            }
+//                        });
+//
+//                builder.show();
             }
         });
-
-
-
-
-
-
-
-
-
         //그렇게 설정을 잘 해놓은 다음에 view를 반환해야 데이터값이 들어간 레이아웃이 반환될거에요~
         return view;
     }

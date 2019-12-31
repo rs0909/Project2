@@ -7,6 +7,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
@@ -26,11 +27,13 @@ public class MainActivity extends AppCompatActivity {
     private final int PERMISSIONS_READ_CALL_LOG = 1001;
     private final int PERMISSIONS_SEND_SMS = 1002;
     private final int PERMISSIONS_READ_PHONE_STATE = 1003;
+    private Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        context = this;
 
         callPermission();
 
@@ -39,8 +42,8 @@ public class MainActivity extends AppCompatActivity {
         }
 
         ListView listView = (ListView)findViewById(R.id.listview);
-        ContactList contact = new ContactList(this);
-        ArrayList <Contact> arrayList = contact.getContactList();
+        final ContactList contact = new ContactList(this);
+        final ArrayList <Contact> arrayList = contact.getContactList();
         ListViewAdapter adapter = new ListViewAdapter(this,arrayList);
         listView.setAdapter(adapter);
 
