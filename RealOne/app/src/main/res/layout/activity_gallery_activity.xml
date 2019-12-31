@@ -5,11 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".GalleryActivity"
-    android:orientation="vertical">
+    android:orientation="horizontal">
 
     <GridView
         android:id="@+id/gridView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:numColumns="auto_fit" />
+        android:numColumns="3" />
 </LinearLayout>

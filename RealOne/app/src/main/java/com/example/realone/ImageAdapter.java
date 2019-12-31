@@ -57,6 +57,7 @@ public class ImageAdapter extends BaseAdapter {
         Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
         imageView.setImageBitmap(Bitmap.createScaledBitmap(bitmap, 500, 500, true));
 
+
         return imageView;
     }
 }
