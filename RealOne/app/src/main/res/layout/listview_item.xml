@@ -4,7 +4,9 @@
 
     android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:descendantFocusability="blocksDescendants"
+    >
 
 
     <de.hdodenhof.circleimageview.CircleImageView
@@ -34,9 +36,12 @@
         android:id="@+id/imageButton1"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:background="#00ff0000"
+        android:background="?attr/selectableItemBackground"
         android:padding="0dp"
-        android:src="@drawable/imgbtn" />
+        android:src="@drawable/imgbtn"
+
+        />
+
 
 
 </LinearLayout>
