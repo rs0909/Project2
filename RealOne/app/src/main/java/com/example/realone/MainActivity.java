@@ -28,15 +28,18 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         callPermission();
 
+        if(isPermission == true){
+            ListView listView = (ListView)findViewById(R.id.listview);
+            ContactList contact = new ContactList(this);
+            ArrayList <Contact> arrayList = contact.getContactList();
 
-        ListView listView = (ListView)findViewById(R.id.listview);
-        ContactList contact = new ContactList(this);
-        ArrayList <Contact> arrayList = contact.getContactList();
+            ListViewAdapter adapter = new ListViewAdapter(this,arrayList);
+            listView.setAdapter(adapter);
+        }
 
-        ListViewAdapter adapter = new ListViewAdapter(this,arrayList);
-        listView.setAdapter(adapter);
 
     }
 
@@ -64,24 +67,6 @@ public class MainActivity extends AppCompatActivity {
         }else{
             isPermission = true;
         }
-        ListView listview = (ListView)findViewById(R.id.listview);
-
-        ArrayList<String> list = new ArrayList<>();
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-                this,
-                android.R.layout.simple_list_item_1,
-                list
-        );
-
-        listview.setAdapter(adapter);
-
-        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-            }
-        });
 
 
     }
