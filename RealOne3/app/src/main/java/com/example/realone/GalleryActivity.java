@@ -74,7 +74,7 @@ public class GalleryActivity extends AppCompatActivity {
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                     Contact contact = arrayList.get(i);
                     LargePhotoDialog largePhotoDialog = new LargePhotoDialog(context);
-                    largePhotoDialog.callFunction(ContentUris.withAppendedId(ContactsContract.Data.CONTENT_URI, arrayList.get(i).getPhotoId()), phoneNumber);
+                    largePhotoDialog.callFunction(ContentUris.withAppendedId(ContactsContract.Data.CONTENT_URI, arrayList.get(i).getPhotoId()), arrayList.get(i).getPhoneNumber());
                 }
             });
         }else {
