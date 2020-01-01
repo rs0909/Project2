@@ -40,7 +40,7 @@
                 android:paddingBottom="10dp"
                 android:paddingLeft="10dp"
                 android:gravity="left"
-                app:civ_border_color="#688857"
+                app:civ_border_color="#FF856B"
                 app:civ_border_width="3dp"
 
                 />

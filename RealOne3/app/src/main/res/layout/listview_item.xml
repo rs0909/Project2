@@ -16,7 +16,7 @@
         android:layout_margin="4dp"
         android:layout_weight="2"
         app:civ_border_width="3dp"
-        app:civ_border_color="#688857"
+        app:civ_border_color="#FF956B"
 
         />
 

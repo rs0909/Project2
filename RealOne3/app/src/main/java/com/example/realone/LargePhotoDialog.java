@@ -38,7 +38,7 @@ public class LargePhotoDialog {
         WindowManager.LayoutParams wm = new WindowManager.LayoutParams();
         wm.copyFrom(dialog.getWindow().getAttributes());
         wm.width = 1000;
-        wm.height = 1000;
+        wm.height = 1040;
         dialog.show();
         Window window = dialog.getWindow();
         window.setAttributes(wm);
@@ -79,7 +79,7 @@ public class LargePhotoDialog {
         WindowManager.LayoutParams wm = new WindowManager.LayoutParams();
         wm.copyFrom(dialog.getWindow().getAttributes());
         wm.width = 1000;
-        wm.height = 1000;
+        wm.height = 1100;
         dialog.show();
         Window window = dialog.getWindow();
         window.setAttributes(wm);
