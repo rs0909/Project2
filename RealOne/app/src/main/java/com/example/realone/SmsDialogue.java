@@ -41,7 +41,13 @@ public class SmsDialogue extends Dialog {
         WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
         layoutParams.flags = WindowManager.LayoutParams.FLAG_DIM_BEHIND;
         layoutParams.dimAmount = 0.8f;
-        getWindow().setAttributes(layoutParams);
+        layoutParams.copyFrom(dialog.getWindow().getAttributes());
+        layoutParams.width = 700;
+        layoutParams.height = 600;
+        Window window = dialog.getWindow();
+        window.setAttributes(layoutParams);
+
+//        getWindow().setAttributes(layoutParams);
 
         //셋팅
 
@@ -58,7 +64,8 @@ public class SmsDialogue extends Dialog {
                     //전송
                     SmsManager smsManager = SmsManager.getDefault();
                     smsManager.sendTextMessage(Phonenum, null, sms, null, null);
-                    Toast.makeText(context, "찬란한 미래를 응원합니다.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(context, "친구를 찔렀습니다.", Toast.LENGTH_LONG).show();
+                    dialog.dismiss();
                 } catch (Exception e) {
                     Toast.makeText(context, "SMS faild, please try again later!", Toast.LENGTH_LONG).show();
                     e.printStackTrace();
