@@ -82,6 +82,7 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
         sharedPreference = getSharedPreferences("Info", MODE_PRIVATE);
 
+
         ImageView profileImg = findViewById(R.id.proImg);
         TextView profileName = findViewById(R.id.proName);
         TextView profilePhone = findViewById(R.id.proPhone);
@@ -92,7 +93,8 @@ public class MainActivity extends AppCompatActivity {
         ListViewAdapter adapter = new ListViewAdapter(this,arrayList);
         listView.setAdapter(adapter);
 
-        Uri uri = Uri.parse( context.getSharedPreferences("Info", Context.MODE_PRIVATE).getString("uri", "notFound"));
+        Uri uri = Uri.parse(sharedPreference.getString("uri", "notFound"));
+
         ParcelFileDescriptor parcelFileDescriptor = null;
         try {
             parcelFileDescriptor = this.getContentResolver().openFileDescriptor(uri, "r");
@@ -154,7 +156,8 @@ public class MainActivity extends AppCompatActivity {
         // Check the SDK version and whether the permission is already granted or not.
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if(checkSelfPermission(Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED && checkSelfPermission(Manifest.permission.READ_CALL_LOG) != PackageManager.PERMISSION_GRANTED &&
-                            checkSelfPermission(Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED && checkSelfPermission(Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED){
+                            checkSelfPermission(Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED && checkSelfPermission(Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED
+                                && checkSelfPermission(Manifest.permission.WRITE_CONTACTS) != PackageManager.PERMISSION_GRANTED){
                 requestPermissions(new String[]{Manifest.permission.READ_CONTACTS, Manifest.permission.READ_CALL_LOG, Manifest.permission.SEND_SMS, Manifest.permission.READ_PHONE_STATE}, 0);
             }
         }
@@ -174,6 +177,7 @@ public class MainActivity extends AppCompatActivity {
             requestPermissions(new String[]{Manifest.permission.READ_PHONE_STATE}, PERMISSIONS_READ_PHONE_STATE);
         }
 
+
     }
 
     private boolean checkPermission(){
@@ -190,4 +194,7 @@ public class MainActivity extends AppCompatActivity {
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
+
+
+
 }
