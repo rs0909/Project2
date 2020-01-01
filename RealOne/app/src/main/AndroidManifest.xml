@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.READ_CALL_LOG"/>
     <uses-permission android:name="android.permission.SEND_SMS" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+>>>>>>> 825936a9b3323712ce58dcd9313545c4578c28e6
 
     <application
         android:allowBackup="true"
@@ -14,7 +15,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".GalleryActivity"></activity>
+        <activity android:name=".SignUpActivity"></activity>
+        <activity android:name=".LoginActivity" />
+        <activity
+            android:name=".ui.login.LoginActivity"
+            android:label="@string/title_activity_login" />
+        <activity android:name=".GalleryActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -8,10 +8,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.util.TypedValue;
+import android.graphics.Point;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.util.Log;
-import android.util.TypedValue;
+import android.view.Display;
+
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
@@ -57,7 +60,11 @@ public class GalleryActivity extends AppCompatActivity {
         arrayList = intent.getParcelableArrayListExtra("friendsList");
 
         GridView gridView = findViewById(R.id.gridView);
-        ImageAdapter imageAdapter = new ImageAdapter(arrayList, this);
+
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        ImageAdapter imageAdapter = new ImageAdapter(arrayList, this, size);
         gridView.setAdapter(imageAdapter);
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

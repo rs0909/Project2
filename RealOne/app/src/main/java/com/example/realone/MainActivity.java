@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -60,6 +61,9 @@ public class MainActivity extends AppCompatActivity {
         while (!checkPermission()){
             //ㅈㄴ 임시방편임
         }
+
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
 
         ListView listView = (ListView)findViewById(R.id.listview);
         final ContactList contact = new ContactList(this);
