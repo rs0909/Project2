@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -11,9 +12,45 @@
      >
 
 
+    <LinearLayout
+        android:id="@+id/profile"
+        android:layout_width="match_parent"
+        android:layout_height="77dp"
+        android:orientation="horizontal"
+        android:paddingTop="4dp"
+        android:paddingBottom="@dimen/activity_vertical_margin">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/profileImg"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_margin="4dp"
+            android:layout_weight="2"
+            app:civ_border_color="#688857"
+            app:civ_border_width="3dp"
+
+            />
+
+        <TextView
+            android:id="@+id/profileName"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:text="TextView" />
+
+        <TextView
+            android:id="@+id/profIlePhone"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:text="TextView" />
+    </LinearLayout>
+
     <ListView
         android:id="@+id/listview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="wrap_content" />
 
 </LinearLayout>

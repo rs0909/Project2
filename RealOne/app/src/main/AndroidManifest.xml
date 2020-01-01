@@ -6,7 +6,7 @@
     <uses-permission android:name="android.permission.READ_CALL_LOG"/>
     <uses-permission android:name="android.permission.SEND_SMS" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
->>>>>>> 825936a9b3323712ce58dcd9313545c4578c28e6
+
 
     <application
         android:allowBackup="true"
