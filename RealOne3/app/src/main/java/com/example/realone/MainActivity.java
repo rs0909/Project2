@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -17,20 +18,21 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.ParcelFileDescriptor;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.io.FileDescriptor;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+
+import static com.example.realone.SettingContactHistoryDB.dbname;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -69,32 +71,24 @@ public class MainActivity extends AppCompatActivity {
         // Finally, set the newly created TextView as ActionBar custom view
         actionBar.setCustomView(tv);
 
+        callPermission();
 
         while (!checkPermission()){
             //ㅈㄴ 임시방편임
         }
 
         Intent intent = new Intent(this, LoginActivity.class);
-       startActivity(intent);
-
-
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
+        startActivity(intent);
         SharedPreferences sharedPreference = getSharedPreferences("Info", MODE_PRIVATE);
 
-        LinearLayout linearLayout = findViewById(R.id.profile);
-        ImageView profileImg = findViewById(R.id.profileImg);
-        TextView profileName = findViewById(R.id.profileName);
-        TextView profilePhone = findViewById(R.id.profIlePhone);
+        ImageView profileImg = findViewById(R.id.proImg);
+        TextView profileName = findViewById(R.id.proName);
+        TextView profilePhone = findViewById(R.id.proPhone);
 
-
-        Uri uri = Uri.parse(sharedPreference.getString("uri", "notFound"));
+        Uri uri = Uri.parse( context.getSharedPreferences("Info", Context.MODE_PRIVATE).getString("uri", "notFound"));
         ParcelFileDescriptor parcelFileDescriptor = null;
         try {
-            parcelFileDescriptor = getContentResolver().openFileDescriptor(uri, "r");
+            parcelFileDescriptor = this.getContentResolver().openFileDescriptor(uri, "r");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -110,12 +104,24 @@ public class MainActivity extends AppCompatActivity {
         profileName.setText(sharedPreference.getString("name", "notFound"));
         profilePhone.setText(sharedPreference.getString("phoneNumber", "notFound"));
 
-        linearLayout.setOnClickListener(new View.OnClickListener() {
+        profileImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, "dfa", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(context, GalleryActivity.class);
+                intent.putExtra("owner", true);
+                context.startActivity(intent);
             }
         });
+        profileName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, GalleryActivity.class);
+                intent.putExtra("owner", true);
+                context.startActivity(intent);
+            }
+        });
+
+
 
         ListView listView = (ListView)findViewById(R.id.listview);
         final ContactList contact = new ContactList(this);
@@ -124,6 +130,7 @@ public class MainActivity extends AppCompatActivity {
         listView.setAdapter(adapter);
 
     }
+
 
     private void callPermission() {
         // Check the SDK version and whether the permission is already granted or not.
@@ -165,10 +172,4 @@ public class MainActivity extends AppCompatActivity {
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
-
-
-
-
-
-
 }

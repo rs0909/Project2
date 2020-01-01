@@ -8,6 +8,7 @@ import android.graphics.Point;
 import android.net.Uri;
 import android.os.ParcelFileDescriptor;
 import android.provider.ContactsContract;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -15,6 +16,7 @@ import android.widget.ImageView;
 
 import java.io.FileDescriptor;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
 
 public class ImageAdapter2 extends BaseAdapter {
@@ -59,6 +61,13 @@ public class ImageAdapter2 extends BaseAdapter {
         FileDescriptor fileDescriptor = parcelFileDescriptor.getFileDescriptor();
         Bitmap bitmap = BitmapFactory.decodeFileDescriptor(fileDescriptor);
         imageView.setImageBitmap(Bitmap.createScaledBitmap(bitmap, size.x/3, size.x/3, true));
+
+        try {
+            parcelFileDescriptor.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
 
         return imageView;
     }

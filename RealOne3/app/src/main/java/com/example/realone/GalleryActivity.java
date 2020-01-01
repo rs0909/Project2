@@ -62,7 +62,7 @@ public class GalleryActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
 
-        if(intent.getExtras().getBoolean("onwer") == true){
+        if(intent.getExtras().getBoolean("owner") == true){
             phoneNumber = intent.getExtras().getString("phoneNumber");
             String name = intent.getExtras().getString("name");
             arrayList = intent.getParcelableArrayListExtra("friendsList");

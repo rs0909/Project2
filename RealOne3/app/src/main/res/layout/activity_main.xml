@@ -1,30 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context=".MainActivity"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-     >
+    android:paddingTop="@dimen/activity_vertical_margin">
 
 
     <LinearLayout
-        android:id="@+id/profile"
         android:layout_width="match_parent"
-        android:layout_height="77dp"
-        android:orientation="horizontal"
-        android:paddingTop="4dp"
-        android:paddingBottom="@dimen/activity_vertical_margin">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/profileImg"
+            android:id="@+id/proImg"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_margin="4dp"
             android:layout_weight="2"
             app:civ_border_color="#688857"
             app:civ_border_width="3dp"
@@ -32,25 +27,30 @@
             />
 
         <TextView
-            android:id="@+id/profileName"
+            android:id="@+id/proName"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center_vertical"
-            android:text="TextView" />
+            android:layout_weight="4"
+            android:text=""
+            android:textColor="#252525"
+            android:textSize="21dp" />
 
         <TextView
-            android:id="@+id/profIlePhone"
+            android:id="@+id/proPhone"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_weight="4"
             android:gravity="center_vertical"
-            android:text="TextView" />
+            android:text=""
+            android:textColor="#252525"
+            android:textSize="21dp" />
+
+
     </LinearLayout>
 
     <ListView
         android:id="@+id/listview"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="match_parent" />
 
 </LinearLayout>

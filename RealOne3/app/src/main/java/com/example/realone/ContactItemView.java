@@ -32,7 +32,7 @@ public class ContactItemView extends LinearLayout {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         //객체화하기위해서 인플레이션 서비스를 활용함
         inflater.inflate(R.layout.listview_item,this,true);
-        //이 소스가 Linear를 상속받았으므로 siger_item을 바로 this에 붙일 수 있음
+        //이 소스가 Linear를 상속받았으앙로 singer_item을 바로 this에 붙일 수 있음
 
         textView1 = findViewById(R.id.textView1);
         imageView1 = findViewById(R.id.imageView1);
