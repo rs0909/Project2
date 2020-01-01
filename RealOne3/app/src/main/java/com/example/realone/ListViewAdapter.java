@@ -55,7 +55,7 @@ public class ListViewAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(int position, final View convertView, ViewGroup parent) {
 
 
         ContactItemView view = new ContactItemView(context);
@@ -71,18 +71,21 @@ public class ListViewAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, GalleryActivity.class);
-                ContactHistoryDBHelper contactHistoryDBHelper = new ContactHistoryDBHelper(context ,dbname,null ,1 );
-                SettingContactHistoryDB settingContactHistoryDB = new SettingContactHistoryDB(context);
-                if(settingContactHistoryDB.getHaveNoCallLog() == true){
-                    intent.putParcelableArrayListExtra("friendsList", contactModelArrayList);
-                }else{
-                    SQLiteDatabase sqLiteDatabase = contactHistoryDBHelper.getReadableDatabase();
-                    ArrayList<Contact> arrayList = settingContactHistoryDB.getFriendsArray(sqLiteDatabase);
-                    intent.putParcelableArrayListExtra("friendsList", arrayList);
-                }
-                intent.putExtra("name", item.getName());
-                intent.putExtra("phoneNumber", item.getPhoneNumber());
+                intent.putExtra("owner", false);
                 context.startActivity(intent);
+//                Intent intent = new Intent(context, GalleryActivity.class);
+//                ContactHistoryDBHelper contactHistoryDBHelper = new ContactHistoryDBHelper(context ,dbname,null ,1 );
+//                SettingContactHistoryDB settingContactHistoryDB = new SettingContactHistoryDB(context);
+//                if(settingContactHistoryDB.getHaveNoCallLog() == true){
+//                    intent.putParcelableArrayListExtra("friendsList", contactModelArrayList);
+//                }else{
+//                    SQLiteDatabase sqLiteDatabase = contactHistoryDBHelper.getReadableDatabase();
+//                    ArrayList<Contact> arrayList = settingContactHistoryDB.getFriendsArray(sqLiteDatabase);
+//                    intent.putParcelableArrayListExtra("friendsList", arrayList);
+//                }
+//                intent.putExtra("name", item.getName());
+//                intent.putExtra("phoneNumber", item.getPhoneNumber());
+//                context.startActivity(intent);
             }
         });
 

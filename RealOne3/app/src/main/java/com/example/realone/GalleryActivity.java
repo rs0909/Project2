@@ -6,8 +6,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.util.TypedValue;
 import android.graphics.Point;
 import android.os.Bundle;
@@ -29,7 +31,7 @@ public class GalleryActivity extends AppCompatActivity {
     ArrayList<Contact> arrayList;
     String phoneNumber;
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gallery_activity);
 
@@ -53,26 +55,39 @@ public class GalleryActivity extends AppCompatActivity {
         // Finally, set the newly created TextView as ActionBar custom view
         actionBar.setCustomView(tv);
 
-
-        Intent intent = getIntent();
-        phoneNumber = intent.getExtras().getString("phoneNumber");
-        String name = intent.getExtras().getString("name");
-        arrayList = intent.getParcelableArrayListExtra("friendsList");
-
         GridView gridView = findViewById(R.id.gridView);
-
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
-        ImageAdapter imageAdapter = new ImageAdapter(arrayList, this, size);
-        gridView.setAdapter(imageAdapter);
-        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Contact contact = arrayList.get(i);
-                LargePhotoDialog largePhotoDialog = new LargePhotoDialog(context);
-                largePhotoDialog.callFunction(ContentUris.withAppendedId(ContactsContract.Data.CONTENT_URI, arrayList.get(i).getPhotoId()), phoneNumber);
-            }
-        });
+
+        Intent intent = getIntent();
+
+        if(intent.getExtras().getBoolean("onwer") == true){
+            phoneNumber = intent.getExtras().getString("phoneNumber");
+            String name = intent.getExtras().getString("name");
+            arrayList = intent.getParcelableArrayListExtra("friendsList");
+
+            ImageAdapter imageAdapter = new ImageAdapter(arrayList, this, size);
+            gridView.setAdapter(imageAdapter);
+            gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    Contact contact = arrayList.get(i);
+                    LargePhotoDialog largePhotoDialog = new LargePhotoDialog(context);
+                    largePhotoDialog.callFunction(ContentUris.withAppendedId(ContactsContract.Data.CONTENT_URI, arrayList.get(i).getPhotoId()), phoneNumber);
+                }
+            });
+        }else {
+            ImageAdapter2 imageAdapter2 = new ImageAdapter2(this, size);
+            gridView.setAdapter(imageAdapter2);
+            gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    SharedPreferences sharedPreferences = getSharedPreferences("Info", MODE_PRIVATE);
+                    LargePhotoDialog largePhotoDialog = new LargePhotoDialog(context);
+                    largePhotoDialog.callFunction(Uri.parse(sharedPreferences.getString("uri", "notFound")), sharedPreferences.getString("phoneNumber", "notfound"));
+                }
+            });
+        }
     }
 }
