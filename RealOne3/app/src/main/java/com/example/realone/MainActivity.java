@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
     private final int PERMISSIONS_SEND_SMS = 1002;
     private final int PERMISSIONS_READ_PHONE_STATE = 1003;
     private Context context;
+    private SharedPreferences sharedPreference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,11 +80,17 @@ public class MainActivity extends AppCompatActivity {
 
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
-        SharedPreferences sharedPreference = getSharedPreferences("Info", MODE_PRIVATE);
+        sharedPreference = getSharedPreferences("Info", MODE_PRIVATE);
 
         ImageView profileImg = findViewById(R.id.proImg);
         TextView profileName = findViewById(R.id.proName);
         TextView profilePhone = findViewById(R.id.proPhone);
+
+        ListView listView = (ListView)findViewById(R.id.listview);
+        final ContactList contact = new ContactList(this);
+        final ArrayList <Contact> arrayList = contact.getContactList();
+        ListViewAdapter adapter = new ListViewAdapter(this,arrayList);
+        listView.setAdapter(adapter);
 
         Uri uri = Uri.parse( context.getSharedPreferences("Info", Context.MODE_PRIVATE).getString("uri", "notFound"));
         ParcelFileDescriptor parcelFileDescriptor = null;
@@ -108,6 +115,17 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, GalleryActivity.class);
+                ContactHistoryDBHelper contactHistoryDBHelper = new ContactHistoryDBHelper(context ,dbname,null ,1 );
+                SettingContactHistoryDB settingContactHistoryDB = new SettingContactHistoryDB(context);
+                if(settingContactHistoryDB.getHaveNoCallLog() == true){
+                    intent.putParcelableArrayListExtra("friendsList", arrayList);
+                }else{
+                    SQLiteDatabase sqLiteDatabase = contactHistoryDBHelper.getReadableDatabase();
+                    ArrayList<Contact> arrayList2 = settingContactHistoryDB.getFriendsArray(sqLiteDatabase);
+                    intent.putParcelableArrayListExtra("friendsList", arrayList2);
+                }
+                intent.putExtra("name", sharedPreference.getString("name", "notFound"));
+                intent.putExtra("phoneNumber", sharedPreference.getString("phoneNumber", "notFound"));
                 intent.putExtra("owner", true);
                 context.startActivity(intent);
             }
@@ -116,18 +134,18 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, GalleryActivity.class);
+                ContactHistoryDBHelper contactHistoryDBHelper = new ContactHistoryDBHelper(context ,dbname,null ,1 );
+                SettingContactHistoryDB settingContactHistoryDB = new SettingContactHistoryDB(context);
+
+                SQLiteDatabase sqLiteDatabase = contactHistoryDBHelper.getReadableDatabase();
+                ArrayList<Contact> arrayList2 = settingContactHistoryDB.getFriendsArray(sqLiteDatabase);
+                intent.putParcelableArrayListExtra("friendsList", arrayList2);
+                intent.putExtra("name", sharedPreference.getString("name", "notFound"));
+                intent.putExtra("phoneNumber", sharedPreference.getString("phoneNumber", "notFound"));
                 intent.putExtra("owner", true);
                 context.startActivity(intent);
             }
         });
-
-
-
-        ListView listView = (ListView)findViewById(R.id.listview);
-        final ContactList contact = new ContactList(this);
-        final ArrayList <Contact> arrayList = contact.getContactList();
-        ListViewAdapter adapter = new ListViewAdapter(this,arrayList);
-        listView.setAdapter(adapter);
 
     }
 

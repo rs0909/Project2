@@ -65,7 +65,7 @@ class SettingContactHistoryDB{
         int permissionCheck = ContextCompat.checkSelfPermission(context, Manifest.permission.READ_CALL_LOG);
         if(permissionCheck == PackageManager.PERMISSION_GRANTED){
             Cursor cursor = context.getContentResolver().query(CallLog.Calls.CONTENT_URI, null, null, null, CallLog.Calls.DEFAULT_SORT_ORDER);
-            if(cursor.getCount() > 0){
+            if(cursor.getCount() >= 0){
                 while(cursor.moveToNext()){
                     String name = cursor.getString(cursor.getColumnIndex(CallLog.Calls.CACHED_NAME));
                     String phoneNumber = cursor.getString(cursor.getColumnIndex(CallLog.Calls.CACHED_FORMATTED_NUMBER));
