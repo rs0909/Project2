@@ -84,7 +84,6 @@ public class GalleryActivity extends AppCompatActivity {
             gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                    Log.d("diqkf2", selectedPhone);
                     SharedPreferences sharedPreferences = getSharedPreferences("Info", MODE_PRIVATE);
                     LargePhotoDialog largePhotoDialog = new LargePhotoDialog(context);
                     largePhotoDialog.callFunction(Uri.parse(sharedPreferences.getString("uri", "notFound")), sharedPreferences.getString("phoneNumber", "notfound"), selectedPhone);

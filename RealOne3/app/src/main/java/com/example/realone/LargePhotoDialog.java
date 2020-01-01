@@ -92,7 +92,7 @@ public class LargePhotoDialog {
         photoView.setImageURI(photoUri);
         int count = getHowManyTimesCallWith(selectedOne);
         if(count != -1){
-            textView.setText("" + count);
+            textView.setText("친밀도:" + count+"0%");
         }
 
         contactButton.setOnClickListener(new View.OnClickListener() {
@@ -114,12 +114,11 @@ public class LargePhotoDialog {
     }
 
     public int getHowManyTimesCallWith(String phoneNumber){
-        Log.d("diqkf1", phoneNumber);
         SQLiteDatabase sqLiteDatabase = context.openOrCreateDatabase(dbname, Context.MODE_PRIVATE, null);
         Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM CONTACT_HISTORY_TABLE", null);
         if(cursor.moveToFirst()){
             do{
-                if(phoneNumber.replaceAll("-", "").equals(cursor.getString(cursor.getColumnIndex("PHONE")))){
+                if(phoneNumber.replaceAll("-", "").equals(cursor.getString(cursor.getColumnIndex("PHONE")).replaceAll("-", ""))){
                     return cursor.getInt(cursor.getColumnIndex("COUNT"));
                 }
             }while (cursor.moveToNext());
