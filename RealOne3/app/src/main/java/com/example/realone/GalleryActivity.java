@@ -78,14 +78,16 @@ public class GalleryActivity extends AppCompatActivity {
                 }
             });
         }else {
+            final String selectedPhone = intent.getExtras().getString("selectedOne");
             ImageAdapter2 imageAdapter2 = new ImageAdapter2(this, size);
             gridView.setAdapter(imageAdapter2);
             gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    Log.d("diqkf2", selectedPhone);
                     SharedPreferences sharedPreferences = getSharedPreferences("Info", MODE_PRIVATE);
                     LargePhotoDialog largePhotoDialog = new LargePhotoDialog(context);
-                    largePhotoDialog.callFunction(Uri.parse(sharedPreferences.getString("uri", "notFound")), sharedPreferences.getString("phoneNumber", "notfound"));
+                    largePhotoDialog.callFunction(Uri.parse(sharedPreferences.getString("uri", "notFound")), sharedPreferences.getString("phoneNumber", "notfound"), selectedPhone);
                 }
             });
         }

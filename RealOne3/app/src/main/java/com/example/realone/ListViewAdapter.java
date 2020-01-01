@@ -72,6 +72,8 @@ public class ListViewAdapter extends BaseAdapter {
             public void onClick(View v) {
                 Intent intent = new Intent(context, GalleryActivity.class);
                 intent.putExtra("owner", false);
+                intent.putExtra("selectedOne", item.getPhoneNumber());
+                Log.d("diqkf3", item.getPhoneNumber());
                 context.startActivity(intent);
             }
         });
