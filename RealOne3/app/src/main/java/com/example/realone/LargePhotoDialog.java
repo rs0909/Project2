@@ -51,7 +51,7 @@ public class LargePhotoDialog {
         photoView.setImageURI(photoUri);
         int count = getHowManyTimesCallWith(phoneNumber);
         if(count != -1){
-            textView.setText("" + count);
+            textView.setText("친밀도:" + count+"0%");
         }
 
         contactButton.setOnClickListener(new View.OnClickListener() {

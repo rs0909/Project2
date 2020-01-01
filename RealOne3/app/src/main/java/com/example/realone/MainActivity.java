@@ -119,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
 
             profileImg.setImageBitmap(image);
             profileName.setText(sharedPreference.getString("name", "notFound"));
-            profilePhone.setText(sharedPreference.getString("phoneNumber", "notFound"));
+            profilePhone.setText("           ");
 
             profileImg.setOnClickListener(new View.OnClickListener() {
                 @Override

@@ -43,7 +43,7 @@ public class SmsDialogue extends Dialog {
         layoutParams.dimAmount = 0.8f;
         layoutParams.copyFrom(dialog.getWindow().getAttributes());
         layoutParams.width = 700;
-        layoutParams.height = 600;
+        layoutParams.height = 700;
         Window window = dialog.getWindow();
         window.setAttributes(layoutParams);
 
