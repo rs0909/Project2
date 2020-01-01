@@ -1,27 +1,27 @@
 package com.example.realone;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
+import android.util.TypedValue;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
-import java.security.Permissions;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
+
+
 
     private final int PERMISSIONS_READ_CONTACTS = 1000;
     private final int PERMISSIONS_READ_CALL_LOG = 1001;
@@ -34,6 +34,27 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         context = this;
+        callPermission();
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle(" Friends");
+        TextView tv = new TextView(this);
+        RelativeLayout.LayoutParams Ip = new RelativeLayout.LayoutParams(
+                ActionBar.LayoutParams.MATCH_PARENT,
+                ActionBar.LayoutParams.WRAP_CONTENT);
+        tv.setLayoutParams(Ip);
+        tv.setText(actionBar.getTitle());
+        tv.setTextColor(Color.WHITE);
+        tv.setTextSize(TypedValue.COMPLEX_UNIT_DIP,26);
+
+        // Set the ActionBar display option
+        Typeface font = Typeface.createFromAsset(getAssets(),
+                "font/rubik.ttf");
+        tv.setTypeface(font);
+        actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+
+        // Finally, set the newly created TextView as ActionBar custom view
+        actionBar.setCustomView(tv);
 
         callPermission();
 

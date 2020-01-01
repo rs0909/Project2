@@ -1,18 +1,26 @@
 package com.example.realone;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.Typeface;
+import android.util.TypedValue;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.Display;
+
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+
 import java.util.ArrayList;
 
 
@@ -24,6 +32,27 @@ public class GalleryActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gallery_activity);
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle("Friend's Friends");
+        TextView tv = new TextView(this);
+        RelativeLayout.LayoutParams Ip = new RelativeLayout.LayoutParams(
+                ActionBar.LayoutParams.MATCH_PARENT,
+                ActionBar.LayoutParams.WRAP_CONTENT);
+        tv.setLayoutParams(Ip);
+        tv.setText(actionBar.getTitle());
+        tv.setTextColor(Color.WHITE);
+        tv.setTextSize(TypedValue.COMPLEX_UNIT_DIP,26);
+
+        // Set the ActionBar display option
+        Typeface font = Typeface.createFromAsset(getAssets(),
+                "font/rubik.ttf");
+        tv.setTypeface(font);
+        actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+
+        // Finally, set the newly created TextView as ActionBar custom view
+        actionBar.setCustomView(tv);
+
 
         Intent intent = getIntent();
         phoneNumber = intent.getExtras().getString("phoneNumber");
