@@ -37,6 +37,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(nameView.getText().toString().equals(sharedPreferences.getString("name", "notFound"))  && phoneNumberview.getText().toString().equals(sharedPreferences.getString("phoneNumber", "notFound"))){
+                    setResult(1);
                     finish();
                 }else{
                     Toast.makeText(getApplicationContext(), "틀렸다", Toast.LENGTH_LONG).show();

@@ -1,6 +1,7 @@
 package com.example.realone;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -36,14 +37,13 @@ import static com.example.realone.SettingContactHistoryDB.dbname;
 
 public class MainActivity extends AppCompatActivity {
 
-
-
     private final int PERMISSIONS_READ_CONTACTS = 1000;
     private final int PERMISSIONS_READ_CALL_LOG = 1001;
     private final int PERMISSIONS_SEND_SMS = 1002;
     private final int PERMISSIONS_READ_PHONE_STATE = 1003;
     private Context context;
     private SharedPreferences sharedPreference;
+    private boolean signUpDone = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,79 +79,86 @@ public class MainActivity extends AppCompatActivity {
         }
 
         Intent intent = new Intent(this, LoginActivity.class);
-        startActivity(intent);
-        sharedPreference = getSharedPreferences("Info", MODE_PRIVATE);
-
-
-        ImageView profileImg = findViewById(R.id.proImg);
-        TextView profileName = findViewById(R.id.proName);
-        TextView profilePhone = findViewById(R.id.proPhone);
-
-        ListView listView = (ListView)findViewById(R.id.listview);
-        final ContactList contact = new ContactList(this);
-        final ArrayList <Contact> arrayList = contact.getContactList();
-        ListViewAdapter adapter = new ListViewAdapter(this,arrayList);
-        listView.setAdapter(adapter);
-
-        Uri uri = Uri.parse(sharedPreference.getString("uri", "notFound"));
-
-        ParcelFileDescriptor parcelFileDescriptor = null;
-        try {
-            parcelFileDescriptor = this.getContentResolver().openFileDescriptor(uri, "r");
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        FileDescriptor fileDescriptor = parcelFileDescriptor.getFileDescriptor();
-        Bitmap image = BitmapFactory.decodeFileDescriptor(fileDescriptor);
-        try {
-            parcelFileDescriptor.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        profileImg.setImageBitmap(image);
-        profileName.setText(sharedPreference.getString("name", "notFound"));
-        profilePhone.setText(sharedPreference.getString("phoneNumber", "notFound"));
-
-        profileImg.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context, GalleryActivity.class);
-                ContactHistoryDBHelper contactHistoryDBHelper = new ContactHistoryDBHelper(context ,dbname,null ,1 );
-                SettingContactHistoryDB settingContactHistoryDB = new SettingContactHistoryDB(context);
-                if(settingContactHistoryDB.getHaveNoCallLog() == true){
-                    intent.putParcelableArrayListExtra("friendsList", arrayList);
-                }else{
-                    SQLiteDatabase sqLiteDatabase = contactHistoryDBHelper.getReadableDatabase();
-                    ArrayList<Contact> arrayList2 = settingContactHistoryDB.getFriendsArray(sqLiteDatabase);
-                    intent.putParcelableArrayListExtra("friendsList", arrayList2);
-                }
-                intent.putExtra("name", sharedPreference.getString("name", "notFound"));
-                intent.putExtra("phoneNumber", sharedPreference.getString("phoneNumber", "notFound"));
-                intent.putExtra("owner", true);
-                context.startActivity(intent);
-            }
-        });
-        profileName.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context, GalleryActivity.class);
-                ContactHistoryDBHelper contactHistoryDBHelper = new ContactHistoryDBHelper(context ,dbname,null ,1 );
-                SettingContactHistoryDB settingContactHistoryDB = new SettingContactHistoryDB(context);
-
-                SQLiteDatabase sqLiteDatabase = contactHistoryDBHelper.getReadableDatabase();
-                ArrayList<Contact> arrayList2 = settingContactHistoryDB.getFriendsArray(sqLiteDatabase);
-                intent.putParcelableArrayListExtra("friendsList", arrayList2);
-                intent.putExtra("name", sharedPreference.getString("name", "notFound"));
-                intent.putExtra("phoneNumber", sharedPreference.getString("phoneNumber", "notFound"));
-                intent.putExtra("owner", true);
-                context.startActivity(intent);
-            }
-        });
+        startActivityForResult(intent, 150);
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
 
+        if (signUpDone == true) {
+
+
+            sharedPreference = getSharedPreferences("Info", MODE_PRIVATE);
+
+            ImageView profileImg = findViewById(R.id.proImg);
+            TextView profileName = findViewById(R.id.proName);
+            TextView profilePhone = findViewById(R.id.proPhone);
+
+            ListView listView = (ListView) findViewById(R.id.listview);
+            final ContactList contact = new ContactList(this);
+            final ArrayList<Contact> arrayList = contact.getContactList();
+            ListViewAdapter adapter = new ListViewAdapter(this, arrayList);
+            listView.setAdapter(adapter);
+
+            Uri uri = Uri.parse(context.getSharedPreferences("Info", Context.MODE_PRIVATE).getString("uri", "notFound"));
+            ParcelFileDescriptor parcelFileDescriptor = null;
+            try {
+                parcelFileDescriptor = this.getContentResolver().openFileDescriptor(uri, "r");
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+            FileDescriptor fileDescriptor = parcelFileDescriptor.getFileDescriptor();
+            Bitmap image = BitmapFactory.decodeFileDescriptor(fileDescriptor);
+            try {
+                parcelFileDescriptor.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            profileImg.setImageBitmap(image);
+            profileName.setText(sharedPreference.getString("name", "notFound"));
+            profilePhone.setText(sharedPreference.getString("phoneNumber", "notFound"));
+
+            profileImg.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(context, GalleryActivity.class);
+                    ContactHistoryDBHelper contactHistoryDBHelper = new ContactHistoryDBHelper(context, dbname, null, 1);
+                    SettingContactHistoryDB settingContactHistoryDB = new SettingContactHistoryDB(context);
+                    if (settingContactHistoryDB.getHaveNoCallLog() == true) {
+                        intent.putParcelableArrayListExtra("friendsList", arrayList);
+                    } else {
+                        SQLiteDatabase sqLiteDatabase = contactHistoryDBHelper.getReadableDatabase();
+                        ArrayList<Contact> arrayList2 = settingContactHistoryDB.getFriendsArray(sqLiteDatabase);
+                        intent.putParcelableArrayListExtra("friendsList", arrayList2);
+                    }
+                    intent.putExtra("name", sharedPreference.getString("name", "notFound"));
+                    intent.putExtra("phoneNumber", sharedPreference.getString("phoneNumber", "notFound"));
+                    intent.putExtra("owner", true);
+                    context.startActivity(intent);
+                }
+            });
+            profileName.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(context, GalleryActivity.class);
+                    ContactHistoryDBHelper contactHistoryDBHelper = new ContactHistoryDBHelper(context, dbname, null, 1);
+                    SettingContactHistoryDB settingContactHistoryDB = new SettingContactHistoryDB(context);
+
+                    SQLiteDatabase sqLiteDatabase = contactHistoryDBHelper.getReadableDatabase();
+                    ArrayList<Contact> arrayList2 = settingContactHistoryDB.getFriendsArray(sqLiteDatabase);
+                    intent.putParcelableArrayListExtra("friendsList", arrayList2);
+                    intent.putExtra("name", sharedPreference.getString("name", "notFound"));
+                    intent.putExtra("phoneNumber", sharedPreference.getString("phoneNumber", "notFound"));
+                    intent.putExtra("owner", true);
+                    context.startActivity(intent);
+                }
+            });
+
+        }
+    }
     private void callPermission() {
         // Check the SDK version and whether the permission is already granted or not.
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -195,6 +202,13 @@ public class MainActivity extends AppCompatActivity {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
-
-
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == 150){
+            if(resultCode == 1){
+                signUpDone = true;
+            }
+        }
+    }
 }
